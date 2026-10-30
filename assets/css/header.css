@@ -1,0 +1,135 @@
+/* ==========================================================================
+   AJE — En-tête compact et menu responsive
+   Chargé en dernier : remplace les réglages de hauteur et de navigation
+   de styles.css. Desktop : 64 px + 48 px. Tablette / mobile : une seule
+   barre de 64 px (58 px sur téléphone) avec le bouton menu intégré.
+   ========================================================================== */
+
+html{scroll-padding-top:128px}
+
+/* --- Bande d’identité ---------------------------------------------------- */
+html body .header .capsule,
+html body .header.solid .capsule{
+  height:64px;
+  background:var(--forest);
+  padding-inline:max(20px,calc((100vw - 1200px)/2 + 24px));
+  gap:16px;
+}
+html body .header .brand{gap:12px}
+html body .header .brand .seal{
+  width:46px;height:46px;border-width:2px;
+  box-shadow:0 0 0 1px rgba(255,255,255,.2);
+}
+html body .header .brand .seal img{width:40px;height:40px}
+html body .header .brand b{font-size:17px;line-height:1.2}
+html body .header .brand small{font-size:10.5px;margin-top:1px;color:#BFD6C4}
+
+html body .header .actions{gap:10px;align-items:center}
+html body .header .lang,
+html body .header .btn-gold{height:38px}
+html body .header .lang{
+  padding-inline:12px;border-radius:999px;
+  border:1px solid rgba(255,255,255,.18);
+}
+html body .header .lang:hover{background:rgba(255,255,255,.08);border-color:rgba(242,194,48,.6)}
+html body .header .btn-gold{border-radius:999px;padding-inline:16px;font-size:12.5px}
+
+/* --- Ligne de navigation (ordinateur) ------------------------------------ */
+html body .header .menu-inner{min-height:48px}
+html body .header .nav{gap:2px}
+html body .header .nav>a{padding:9px 11px;font-size:12.5px;border-radius:999px}
+html body .header .nav>a::after{display:none}
+html body .header .nav>a.on{background:var(--forest);color:#fff;box-shadow:none}
+html body .header .nav>a:not(.on):hover{background:#EEF4EA;color:var(--forest);box-shadow:none}
+
+/* --- Bouton menu --------------------------------------------------------- */
+html body .header .menu-btn{
+  display:none;place-items:center;
+  width:40px;height:40px;padding:0;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.2);
+  background:rgba(255,255,255,.06);color:#fff;
+  cursor:pointer;
+  transition:background-color .2s,border-color .2s;
+}
+html body .header .menu-btn:hover{background:rgba(255,255,255,.12);border-color:rgba(242,194,48,.6)}
+html body .header .menu-btn:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+html body .header .menu-btn svg{width:20px;height:20px}
+html body .header .menu-btn[aria-expanded="true"]{background:var(--gold);border-color:var(--gold);color:var(--forest)}
+html body .header .menu-btn[aria-expanded="true"] svg{display:none}
+html body .header .menu-btn[aria-expanded="true"]::before{
+  content:"";width:16px;height:16px;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M2 2l12 12M14 2L2 14' stroke='%230B3D2C' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+
+/* --- Panneau de menu ----------------------------------------------------- */
+html body .header .drawer{
+  display:none;
+  margin:0;max-width:none;
+  padding:14px max(20px,calc((100vw - 1200px)/2 + 24px)) 20px;
+  background:#fff;border:0;border-radius:0;
+  border-bottom:1px solid var(--line);
+  box-shadow:0 24px 40px -24px rgba(6,36,25,.45);
+  max-height:calc(100dvh - 64px);overflow-y:auto;overscroll-behavior:contain;
+}
+html body .header .drawer.open{display:block}
+html body .header .drawer nav{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 12px;
+}
+html body .header .drawer a{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  min-height:50px;padding:12px 14px;
+  border:0;border-radius:12px;
+  font-size:15px;font-weight:600;color:var(--forest);
+  text-decoration:none;
+  transition:background-color .2s;
+}
+html body .header .drawer a::after{
+  content:"";flex:none;width:8px;height:8px;
+  border-top:2px solid currentColor;border-inline-end:2px solid currentColor;
+  transform:rotate(45deg);opacity:.35;
+}
+html[dir=rtl] body .header .drawer a::after{transform:rotate(-45deg)}
+html body .header .drawer a:hover{background:#EEF4EA}
+html body .header .drawer a.on{background:var(--forest);color:#fff}
+html body .header .drawer a.on::after{opacity:1;border-color:var(--gold)}
+html body .header .drawer a:focus-visible{outline:3px solid var(--gold);outline-offset:1px}
+
+@media(prefers-reduced-motion:no-preference){
+  html body .header .drawer.open{animation:ajeMenuIn .28s var(--ease)}
+}
+@keyframes ajeMenuIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+
+/* --- Tablette : une seule barre ------------------------------------------ */
+@media(max-width:1150px){
+  html{scroll-padding-top:80px}
+  html body .header .menu-row{display:none}
+  html body .header .menu-btn{display:inline-grid}
+}
+
+/* --- Téléphone ----------------------------------------------------------- */
+@media(max-width:620px){
+  html{scroll-padding-top:72px}
+  html body .header .capsule,
+  html body .header.solid .capsule{height:58px;padding-inline:14px;gap:10px}
+  html body .header .brand{gap:9px}
+  html body .header .brand .seal{width:40px;height:40px}
+  html body .header .brand .seal img{width:34px;height:34px}
+  html body .header .brand b{font-size:13.5px;white-space:normal;line-height:1.15}
+  html body .header .brand small{display:none}
+  html body .header .actions{gap:6px}
+  html body .header .btn-gold{width:38px;padding:0;justify-content:center}
+  html body .header .btn-gold .hide-sm{display:none}
+  html body .header .lang{padding-inline:9px;font-size:12px;gap:5px}
+  html body .header .lang svg{display:none}
+  html body .header .menu-btn{width:38px;height:38px}
+  html body .header .drawer{max-height:calc(100dvh - 58px);padding:10px 14px 18px}
+  html body .header .drawer nav{grid-template-columns:1fr;gap:2px}
+}
+@media(max-width:380px){
+  html body .header .brand b{font-size:12.5px}
+  html body .header .lang{padding-inline:7px}
+}
+
+@media print{html body .header{display:none!important}}
+html body .header .menu-btn{order:-1}

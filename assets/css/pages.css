@@ -1,0 +1,398 @@
+/* ==========================================================================
+   AJE — Pages intérieures
+   Toutes les règles sont limitées à #site-view : la page d’accueil,
+   l’en-tête et le pied de page ne sont pas modifiés.
+   ========================================================================== */
+
+/* 1. Typographie : les titres intérieurs reprennent le serif de l’accueil
+   -------------------------------------------------------------------------- */
+#site-view.site-page{
+  --f-title:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --card-radius:16px;
+  --card-line:#E1E9DE;
+  --card-shadow:0 1px 0 rgba(11,61,44,.04),0 22px 40px -34px rgba(6,36,25,.45);
+  background:var(--paper);
+}
+html[lang=ar] #site-view.site-page{--f-title:"Cairo",Tahoma,sans-serif}
+
+html body #site-view.site-page :is(h1,h2,h3){letter-spacing:-.012em}
+html[lang=ar] body #site-view.site-page :is(h1,h2,h3){letter-spacing:0}
+
+/* 2. Bandeau de page : même univers que le héros de l’accueil
+   -------------------------------------------------------------------------- */
+#site-view .page-banner{
+  position:relative;isolation:isolate;overflow:hidden;
+  padding:34px 0 52px;
+  background:var(--deep);
+  border:0;color:#fff;
+}
+#site-view .page-banner::before{
+  content:"";position:absolute;inset:0;z-index:-2;pointer-events:none;
+  background:
+    radial-gradient(48% 90% at 8% 0%,rgba(242,194,48,.11),transparent 70%),
+    linear-gradient(180deg,rgba(11,61,44,0) 0%,rgba(11,61,44,.55) 100%);
+  transform:none;border:0;width:auto;height:auto;
+}
+/* motif géométrique du héros, révélé vers le bord */
+#site-view .page-banner::after{
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  width:auto;height:auto;border:0;transform:none;
+  opacity:.07;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56'%3E%3Cg fill='none' stroke='%23F2C230'%3E%3Crect x='16' y='16' width='24' height='24'/%3E%3Crect x='16' y='16' width='24' height='24' transform='rotate(45 28 28)'/%3E%3C/g%3E%3C/svg%3E");
+  -webkit-mask-image:linear-gradient(90deg,transparent 30%,#000 90%);
+          mask-image:linear-gradient(90deg,transparent 30%,#000 90%);
+}
+html[dir=rtl] #site-view .page-banner::after{
+  -webkit-mask-image:linear-gradient(270deg,transparent 30%,#000 90%);
+          mask-image:linear-gradient(270deg,transparent 30%,#000 90%);
+}
+
+#site-view .banner-grid{display:block;position:relative}
+#site-view .banner-grid>div:first-child{position:relative;z-index:1;max-width:760px}
+
+/* La balance devient un grand filigrane, coupé par le bord du bandeau */
+#site-view .banner-art{
+  position:absolute;z-index:0;inset-inline-end:-18px;top:50%;
+  transform:translateY(-46%);
+  display:block;min-height:0;padding:0;
+  background:none;border:0;border-radius:0;
+  opacity:1;animation:none;
+}
+#site-view .banner-art svg{
+  width:250px;height:250px;
+  color:var(--gold);opacity:.22;stroke-width:.9;filter:none;
+}
+#site-view .banner-art small{display:none}
+@media(prefers-reduced-motion:no-preference){
+  #site-view .banner-art:hover{background:none}
+}
+
+/* fil d’Ariane */
+#site-view .breadcrumb{
+  gap:8px;margin-bottom:30px;font-size:13px;color:#A9C4B1;
+}
+#site-view .breadcrumb a{color:#fff;text-decoration:none;border-bottom:1px solid rgba(242,194,48,.45);padding-bottom:1px}
+#site-view .breadcrumb a:hover{border-bottom-color:var(--gold)}
+#site-view .breadcrumb>span[aria-hidden]{color:var(--gold);opacity:.8}
+
+#site-view .page-banner .label{color:var(--gold);font-size:11px;letter-spacing:.14em}
+html[lang=ar] #site-view .page-banner .label{letter-spacing:0;font-size:13px}
+
+html body #site-view .page-banner h1{
+  font-family:var(--f-title);font-weight:700;
+  font-size:clamp(34px,4.3vw,56px);line-height:1.08;
+  color:#fff;margin:12px 0 0;max-width:20ch;
+}
+html[lang=ar] body #site-view .page-banner h1{line-height:1.4}
+
+/* filet doré avec losange, repris de la « balance » de l’accueil */
+#site-view .page-banner .intro{
+  position:relative;margin:0;padding-top:38px;
+  color:#CFE0D4;font-size:17px;line-height:1.7;max-width:62ch;
+}
+#site-view .page-banner .intro::before{
+  content:"";position:absolute;top:13px;inset-inline-start:0;
+  width:190px;height:11px;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='190' height='11'%3E%3Cdefs%3E%3ClinearGradient id='g'%3E%3Cstop offset='0' stop-color='%23F2C230'/%3E%3Cstop offset='1' stop-color='%23F2C230' stop-opacity='0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='1.5' y='1.5' width='8' height='8' fill='%23F2C230' transform='rotate(45 5.5 5.5)'/%3E%3Crect x='14' y='4.75' width='176' height='1.5' fill='url(%23g)'/%3E%3C/svg%3E") no-repeat;
+}
+html[dir=rtl] #site-view .page-banner .intro::before{transform:scaleX(-1)}
+
+/* 3. Corps de page
+   -------------------------------------------------------------------------- */
+#site-view .page-body{
+  background:var(--paper);
+  padding:44px 0 64px;
+}
+
+/* note de maquette : un encart lisible plutôt qu’une ligne grise */
+#site-view .demo-note{
+  display:block;width:fit-content;max-width:100%;
+  margin:0 0 28px;padding:11px 16px;
+  font-size:13px;line-height:1.6;color:var(--gold-ink);
+  background:var(--cream);
+  border:0;border-inline-start:3px solid var(--gold);
+  border-radius:0 8px 8px 0;
+}
+html[dir=rtl] #site-view .demo-note{border-radius:8px 0 0 8px}
+#site-view .demo-note::after,#site-view .demo-note::before{display:none}
+
+/* 4. Cartes : un seul langage pour tous les conteneurs clairs
+   -------------------------------------------------------------------------- */
+#site-view :is(.panel,.list-record,.news-page-card,.legal-file,.case-result,
+  .detail-layout>article,.detail-side,.contact-grid>section:not(.contact-address),
+  .faq,.preparation,.agency-editorial,.amicable-opening,.login-layout){
+  border-radius:var(--card-radius);
+  border-color:var(--card-line);
+  box-shadow:var(--card-shadow);
+}
+#site-view :is(.resource-kit,.contact-address,.login-brand,.case-searchboard,.legal-search){
+  border-radius:var(--card-radius);
+}
+@media(prefers-reduced-motion:no-preference){
+  #site-view :is(.list-record,.news-page-card,.legal-file,.case-result):hover{
+    box-shadow:0 1px 0 rgba(11,61,44,.04),0 26px 44px -30px rgba(6,36,25,.5);
+  }
+}
+
+/* 5. Pages de texte (mot de l’Agent, mentions, données, accessibilité)
+   -------------------------------------------------------------------------- */
+#site-view .page-body>.wrap>article.page-prose{
+  max-width:780px;margin-inline:auto;
+  padding:clamp(26px,4.5vw,52px);
+  background:#fff;border:1px solid var(--card-line);
+  border-radius:var(--card-radius);box-shadow:var(--card-shadow);
+}
+#site-view .page-body>.wrap>.demo-note:has(+article.page-prose){margin-inline:auto;max-width:780px;width:100%}
+#site-view .page-body>.wrap>article.page-prose>h2{
+  font-size:clamp(26px,2.6vw,34px);line-height:1.2;margin:0 0 18px;
+}
+#site-view .page-body>.wrap>article.page-prose>h2::before{
+  content:"";display:block;width:9px;height:9px;margin:4px 0 18px 2px;
+  background:var(--gold);transform:rotate(45deg);border-radius:1px;
+}
+#site-view .page-body>.wrap>article.page-prose>p{
+  font-size:17px;line-height:1.85;color:var(--ink-2);max-width:64ch;
+}
+html:not([lang=ar]) #site-view[data-page="mot-agent"] .page-body>.wrap>article.page-prose>p:first-of-type{
+  font-family:var(--f-title);font-size:clamp(20px,2vw,24px);line-height:1.55;color:var(--forest);
+}
+
+/* 6. Fiches de lecture (décision, publication, actualité)
+   -------------------------------------------------------------------------- */
+#site-view .detail-layout{gap:28px;align-items:start}
+#site-view .detail-layout>article{background:#fff;padding:clamp(24px,3.6vw,44px)}
+#site-view .detail-layout>article p{max-width:66ch;font-size:17px;line-height:1.85}
+#site-view .detail-layout>article h2{font-size:clamp(25px,2.4vw,32px);line-height:1.22;margin-bottom:18px}
+#site-view .detail-layout>article h3{font-size:20px;margin:30px 0 8px;padding-top:24px;border-top:1px solid var(--line)}
+#site-view .detail-layout>article h2+h3{border-top:0;padding-top:0;margin-top:8px}
+#site-view .detail-side{position:sticky;top:96px;background:#fff;padding:26px}
+#site-view .detail-side h3{font-size:19px;margin-bottom:14px}
+#site-view .detail-side dt{font-size:12px;color:var(--ink-3);margin-top:14px}
+#site-view .detail-side dd{margin:3px 0 0;font-weight:600;color:var(--ink)}
+#site-view .reading-tools{border-radius:10px}
+
+/* 7. Formulaires
+   -------------------------------------------------------------------------- */
+#site-view .site-form :is(input:not([type=checkbox]):not([type=radio]),textarea,select){
+  min-height:48px;background:#fff;
+  border:1.5px solid #D3DDCF;border-radius:10px;
+  font-size:16px;color:var(--ink);
+  transition:border-color .2s,box-shadow .2s;
+}
+#site-view .site-form textarea{min-height:150px;line-height:1.6}
+#site-view .site-form :is(input,textarea,select):hover{border-color:#B6C7B1}
+#site-view .site-form :is(input,textarea,select):focus{
+  outline:none;border-color:var(--forest);
+  box-shadow:0 0 0 4px rgba(242,194,48,.38);
+}
+#site-view .site-form label{color:var(--ink);font-weight:600}
+#site-view .site-form input[type=checkbox]{accent-color:var(--forest);width:18px;height:18px}
+
+/* 8. Questions fréquentes
+   -------------------------------------------------------------------------- */
+html body #site-view .faq{background:#fff;padding:clamp(24px,3.5vw,40px);border:1px solid var(--card-line);margin-top:28px}
+#site-view .faq h2{font-size:clamp(25px,2.4vw,32px);margin-bottom:10px}
+html body #site-view .faq details{border:0;border-bottom:1px solid var(--line);border-radius:0;background:transparent;margin:0;padding:0}
+html body #site-view .faq details:last-child{border-bottom:0}
+html body #site-view .faq summary{
+  list-style:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
+  padding:18px 0;font-size:16px;font-weight:600;color:var(--forest);
+}
+#site-view .faq summary::-webkit-details-marker{display:none}
+#site-view .faq summary::after{
+  content:"";flex:none;width:30px;height:30px;border-radius:50%;
+  background:var(--mist) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M6 1v10M1 6h10' stroke='%230B3D2C' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E") center/12px no-repeat;
+  transition:transform .25s var(--ease),background-color .25s;
+}
+#site-view .faq details[open] summary::after{
+  transform:rotate(45deg);background-color:var(--gold);
+}
+#site-view .faq summary:focus-visible{outline:3px solid var(--gold);outline-offset:4px;border-radius:6px}
+html body #site-view .faq details>p{margin:-2px 0 20px;max-width:68ch;color:var(--ink-2)}
+
+/* 9. « Poursuivre votre visite » : des tickets comme sur l’accueil
+   -------------------------------------------------------------------------- */
+#site-view .interior-next{
+  margin-top:56px;padding-top:0;border-top:0;
+  display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1fr) minmax(0,1fr);
+  gap:16px;align-items:stretch;
+}
+#site-view .interior-next>span{
+  align-self:center;
+  font:600 clamp(21px,2vw,26px)/1.25 var(--f-title);color:var(--forest);
+}
+html[lang=ar] #site-view .interior-next>span{font-weight:700}
+#site-view .interior-next a{
+  display:flex;align-items:center;justify-content:space-between;gap:18px;
+  min-height:84px;padding:20px 22px;
+  background:#fff;border:1px solid var(--card-line);border-radius:14px;
+  box-shadow:var(--card-shadow);
+  font-size:16px;font-weight:600;color:var(--forest);text-decoration:none;
+}
+#site-view .interior-next a svg{
+  box-sizing:content-box;flex:none;width:16px;height:16px;padding:10px;
+  border-radius:50%;background:var(--mist);color:var(--forest);
+  transition:background-color .25s,color .25s,transform .25s var(--ease);
+}
+#site-view .interior-next a:hover{background:#fff;border-color:#C9D8C2}
+#site-view .interior-next a:hover svg{background:var(--gold);color:var(--deep)}
+#site-view .interior-next a:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+@media(prefers-reduced-motion:no-preference){
+  #site-view .interior-next a{transition:border-color .25s,box-shadow .25s,transform .25s var(--ease)}
+  #site-view .interior-next a:hover{transform:translateY(-3px)}
+}
+
+/* 10. Liens et focus
+   -------------------------------------------------------------------------- */
+#site-view .page-body a.link{font-weight:600}
+#site-view .page-body a.link:hover{text-decoration:underline;text-decoration-color:var(--gold);text-decoration-thickness:2px;text-underline-offset:4px}
+#site-view :is(a,button):focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+
+/* 11. Adaptation mobile
+   -------------------------------------------------------------------------- */
+@media(max-width:1050px){
+  #site-view .banner-art svg{width:200px;height:200px}
+}
+@media(max-width:760px){
+  #site-view .page-banner{padding:24px 0 38px}
+  #site-view .breadcrumb{margin-bottom:22px}
+  #site-view .banner-grid{display:block}
+  #site-view .banner-art{display:block;inset-inline-end:-46px;top:auto;bottom:-70px;transform:none}
+  #site-view .banner-art svg{width:170px;height:170px;opacity:.14}
+  html body #site-view .page-banner h1{font-size:clamp(30px,8.4vw,40px)}
+  #site-view .page-banner .intro{font-size:16px;padding-top:30px}
+  #site-view .page-body{padding:30px 0 46px}
+  #site-view .interior-next{grid-template-columns:1fr;margin-top:40px}
+  #site-view .interior-next a{min-height:68px}
+  #site-view .detail-side{position:static}
+}
+
+/* 12. Mouvement réduit et impression
+   -------------------------------------------------------------------------- */
+@media(prefers-reduced-motion:reduce){
+  #site-view .faq summary::after,#site-view .interior-next a,#site-view .interior-next a svg{transition:none}
+}
+@media print{
+  #site-view .page-banner{background:#fff;color:#000;padding:10px 0}
+  #site-view .page-banner::before,#site-view .page-banner::after,
+  #site-view .page-banner .intro::before,#site-view .banner-art{display:none}
+  html body #site-view .page-banner h1{color:#000}
+  #site-view .page-body{background:#fff}
+  #site-view :is(.panel,.list-record,.faq,.detail-layout>article,.page-prose){box-shadow:none}
+}
+
+/* ==========================================================================
+   13. Finitions modernes : contrôles, boutons, recherche, surfaces sombres
+   ========================================================================== */
+
+/* Boutons : forme pilule, comme sur l’accueil */
+#site-view .page-body .btn{border-radius:999px;min-height:44px;padding-inline:22px;font-weight:600;letter-spacing:.005em}
+#site-view .page-body .btn-green{background:var(--forest);color:#fff;border-color:var(--forest)}
+#site-view .page-body .btn-green:hover{background:#145038}
+#site-view .page-body .btn-secondary{background:#fff;color:var(--forest);border:1.5px solid #CFDCCB}
+#site-view .page-body .btn-secondary:hover{border-color:var(--forest);background:#fff}
+
+/* Filtres, onglets et sujets : un seul contrôle segmenté */
+#site-view :is(.filter-buttons,.contact-topics){display:flex;flex-wrap:wrap;gap:6px}
+#site-view :is(.filter-buttons,.contact-topics,.layout-switch) button{
+  min-height:38px;padding:0 16px;border-radius:999px;
+  border:1px solid #D7E2D3;background:#fff;color:var(--ink-2);
+  font-size:13px;font-weight:600;cursor:pointer;
+  transition:background-color .2s,border-color .2s,color .2s;
+}
+#site-view :is(.filter-buttons,.contact-topics,.layout-switch) button:hover{border-color:#A9BFA6;color:var(--forest)}
+#site-view :is(.filter-buttons,.contact-topics,.layout-switch) button[aria-pressed="true"]{
+  background:var(--forest);border-color:var(--forest);color:#fff;
+}
+/* sur fond sombre (recherche de décisions, textes juridiques) */
+#site-view :is(.case-searchboard,.legal-search) .filter-buttons button{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.16);color:#DCE9DF}
+#site-view :is(.case-searchboard,.legal-search) .filter-buttons button:hover{border-color:rgba(242,194,48,.6);color:#fff}
+#site-view :is(.case-searchboard,.legal-search) .filter-buttons button[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:var(--deep)}
+
+#site-view .page-tabs{
+  display:inline-flex;gap:4px;padding:5px;border-radius:999px;
+  background:#fff;border:1px solid var(--card-line);box-shadow:var(--card-shadow);
+}
+#site-view .page-tabs button{min-height:40px;padding:0 20px;border-radius:999px;border:0;background:transparent;color:var(--ink-2);font-weight:600;font-size:13.5px;cursor:pointer}
+#site-view .page-tabs button:hover{color:var(--forest);background:#F1F6EE}
+#site-view .page-tabs button[aria-selected="true"]{background:var(--forest);color:#fff}
+
+/* Barre de recherche des listes */
+#site-view .library-toolbar{
+  border-radius:var(--card-radius);
+  border:1px solid var(--card-line);box-shadow:var(--card-shadow);
+  gap:14px;
+}
+#site-view :is(.case-searchboard,.legal-search) .library-toolbar{border:0;box-shadow:none}
+#site-view .field-search input{
+  min-height:44px;border-radius:999px;
+  padding-inline:44px 18px;
+  border:1.5px solid #D7E2D3;background:#fff;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%236A7A6F' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m20 20-3.5-3.5'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:16px 50%;
+  font-size:15px;color:var(--ink);
+  transition:border-color .2s,box-shadow .2s;
+}
+html[dir=rtl] #site-view .field-search input{padding-inline:44px 18px;background-position:calc(100% - 16px) 50%}
+#site-view .field-search input:focus{outline:none;border-color:var(--forest);box-shadow:0 0 0 4px rgba(242,194,48,.38)}
+#site-view .content-count{font-size:13px;color:var(--ink-3)}
+
+/* Surfaces sombres : même lumière dorée que le bandeau */
+#site-view :is(.resource-kit,.contact-address,.login-brand,.case-searchboard,.legal-search,.studies-object){
+  background:
+    radial-gradient(90% 70% at 100% 0%,rgba(242,194,48,.10),transparent 60%),
+    var(--forest);
+}
+
+/* Actualités : image qui respire au survol, lien lisible sur la carte à la une */
+#site-view .news-page-card{overflow:hidden}
+#site-view .news-page-card img{transition:transform .6s var(--ease)}
+#site-view .news-page-card:first-child .link{color:var(--gold)}
+#site-view .news-page-card .record-meta{font-size:12.5px;letter-spacing:.01em}
+@media(prefers-reduced-motion:no-preference){
+  #site-view .news-page-card:hover img{transform:scale(1.035)}
+  #site-view :is(.list-record,.news-page-card,.legal-file,.case-result,.publication-object){transition:transform .3s var(--ease),box-shadow .3s}
+  #site-view :is(.news-page-card,.case-result,.publication-object):hover{transform:translateY(-3px)}
+}
+
+/* Liste de préparation : cases plus nettes */
+#site-view .readiness-item input[type=checkbox]{accent-color:var(--forest);width:20px;height:20px}
+#site-view .readiness-item{border-radius:10px;transition:background-color .2s}
+#site-view .readiness-item:hover{background:#F4F8F1}
+
+/* Entrée de page : un seul mouvement, à l’arrivée */
+@media(prefers-reduced-motion:no-preference){
+  #site-view .page-banner .banner-grid>div:first-child{animation:ajeRise .6s cubic-bezier(.16,1,.3,1) both}
+}
+@keyframes ajeRise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+@media(max-width:620px){
+  #site-view .page-tabs{display:flex;width:100%}
+  #site-view .page-tabs button{flex:1;padding:0 8px;font-size:12.5px}
+  #site-view .library-toolbar{padding:12px}
+}
+
+/* 14. Précisions de spécificité : l’identifiant est doublé pour passer
+   devant les nombreuses surcharges historiques de styles.css. */
+#site-view#site-view .field-search{border:0;background:none;padding:0;border-radius:999px;min-width:0}
+#site-view#site-view .field-search input{padding-block:0}
+#site-view#site-view :is(.filter-buttons,.contact-topics) button{
+  border-radius:999px;font-size:13px;padding:0 16px;min-height:38px;
+  border:1px solid #D7E2D3;background:#fff;color:var(--ink-2);font-weight:600;
+}
+#site-view#site-view :is(.filter-buttons,.contact-topics) button:hover{border-color:#A9BFA6;color:var(--forest)}
+#site-view#site-view :is(.filter-buttons,.contact-topics) button[aria-pressed="true"]{background:var(--forest);border-color:var(--forest);color:#fff}
+#site-view#site-view :is(.case-searchboard,.legal-search,.legal-controls) .filter-buttons button{
+  background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.18);color:#DCE9DF;
+}
+#site-view#site-view :is(.case-searchboard,.legal-search,.legal-controls) .filter-buttons button:hover{border-color:rgba(242,194,48,.65);color:#fff}
+#site-view#site-view :is(.case-searchboard,.legal-search,.legal-controls) .filter-buttons button[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:var(--deep)}
+#site-view#site-view .layout-switch{display:inline-flex;gap:3px;padding:4px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14)}
+#site-view#site-view .layout-switch button{min-height:32px;padding:0 14px;border:0;border-radius:999px;background:transparent;color:#DCE9DF;font:600 12px var(--f-text);box-shadow:none}
+#site-view#site-view .layout-switch button[aria-pressed="true"]{background:#fff;color:var(--forest)}
+#site-view#site-view :is(.legal-search,.case-searchboard) .library-toolbar{background:none}
+@media(max-width:620px){
+  #site-view#site-view .library-toolbar{flex-wrap:wrap}
+  #site-view#site-view .library-toolbar .field-search{flex:1 1 100%;max-width:none}
+}
